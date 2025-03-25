@@ -5,9 +5,9 @@ from pprint import pprint
 
 conn = mysql.connector.connect(
         host="localhost",
-        user="henrique",
-        password="1234",
-        database="meu_banco"
+        user="admin",
+        password="Administrator2404",
+        database="erp_agro"
     )
 
 def cadastrar_usuario():
@@ -15,12 +15,15 @@ def cadastrar_usuario():
         # cadastro de um usuario
         cursor = conn.cursor()
 
-        nome = input('Digite aqui seu nome! ')
-        idade = input('Insira aqui sua idade: ')
+        usuario = input('Digite aqui seu nome de usuario! ')
+        senha = input('Crie uma senha aqui: ')
+        senha_confirm = input('Crie uma senha aqui: ')
         email = input('Coloque seu melhor email aqui! ')
 
-        sql = 'INSERT INTO usuarios (nome, idade, email) VALUES (%s, %s, %s)'
-        valores = (nome, idade, email)
+        # criar tabela para cada usuario.
+
+        sql = 'INSERT INTO usuarios (usuario, senha, senha_confirm, email) VALUES (%s, %s, %s, %s)'
+        valores = (usuario, senha, senha_confirm, email)
         cursor.execute(sql, valores)
 
         pprint('Cadastro realizado com sucesso!')
@@ -29,7 +32,7 @@ def cadastrar_usuario():
         cursor.close()
 
 
-def dashboard():
+def dashboard(nome_usuario):
     while True:
         print('\n[1] Cadastrar animais:')
         print('[2] Sair')
@@ -44,7 +47,6 @@ def dashboard():
         else:
              print('Opção invalida!')
           
-dashboard()
 
 def cadastro_de_animais():
 
@@ -80,7 +82,7 @@ def login_usuario():
         if usuario:
             nome_usuario = usuario[0]
             print(f'✅ Bem-vindo, {usuario[0]}!')
-            dashboard()
+            dashboard(nome_usuario)
         else:
             print('❌ E-mail não encontrado. Tente novamente.')
 
@@ -105,5 +107,7 @@ def menu():
             print('Erro, tente novamente!')
 
 menu()
+
+
 
 conn.close()

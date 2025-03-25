@@ -1,4 +1,6 @@
-# um ERP simples para o agro de produtores de pequeno e medio porte
+# AgroControl
+
+ERP simples para o agro de produtores de pequeno e medio porte
 
 ## Funções 
 
@@ -13,10 +15,17 @@
     - variação de animais
     - controle de vacinação
 
-## oque eu preciso criar:
+## Funções para serem adicionadas:
 
     - para criar uma conta eu já tenho a table de usuarios que acessa o banco de dados
         - preciso criar um sistema de login
     - para controle dos animais eu preciso de uma table: 'animais'
     - para controle dos insumos eu preciso de uma table: 'insumos'
     - entender quanto de insumo cada animal come
+
+
+## Pré-requisitos:
+
+    - Python
+    - Banco de dados MySQL instalado com as
+
