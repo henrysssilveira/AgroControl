@@ -57,21 +57,60 @@ def insumos():
         print('\n[1] Ver insumos')
         print('[2] Atualizar insumos')
         print('[3] Gerar relatorio de insumos')
-        print('[4] Sair')
+        print('[4] Cadastrar insumos')
+        print('[5] Sair')
 
         escolha_insumos = input('Escolha uma opção:  ')
 
         if escolha_insumos == '1':
-            print('')
+            print('Verifique aqui os insumos')
+            ver_insumos()
         elif escolha_insumos == '2':
             print('')
         elif escolha_insumos == '3':
             print('')
         elif escolha_insumos == '4':
+            print('')
+            cadastrar_insumos()
+        elif escolha_insumos == '5':
             print('até uma proxima!')
             break
         else:
              print('Opção invalida! tente novamente')
+
+def cadastrar_insumos():
+        
+        cursor_cad_insumos = conn.cursor()
+
+        nome_insumo = input('Qual insumo deseja cadastrar?  ')
+        categoria_insumo = input('Qual categoria?  ')
+        qntd_add_insumo = input('Quanto deseja adicionar? (adicione com unidade de medida)  ')
+        validade_insumo = input('Data de validade?  ')
+        fornecedor_insumo = input('Qual fornecedor?  ')
+        pa_insumo = input('Qual o preço de aquisição?  ')
+        qntd_usd_insumo = input('Quanto já foi utiliazdo?  ')
+
+        sql_insumo = 'INSERT INTO insumos (nome_insumo, categoria_insumo, qntd_add_insumo, validade_insumo, fornecedor_insumo, pa_insumo, qntd_usd_insumo) VALUES (%s, %s, %s, %s, %s, %s, %s)'
+        valores_insumos = (nome_insumo, categoria_insumo, qntd_add_insumo, validade_insumo, fornecedor_insumo, pa_insumo, qntd_usd_insumo)
+        cursor_cad_insumos.execute(sql_insumo, valores_insumos)
+
+        pprint('Cadastrado com sucesso"')
+
+        conn.commit()
+        cursor_cad_insumos.close()
+
+def ver_insumos():
+        cursor_ver_insumos = conn.cursor()
+
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM insumos')
+
+        ver_insumos_info = cursor.fetchall()
+
+        pprint(ver_insumos_info)
+
+        cursor.close()
+        conn.close()
 
 
 def cadastro_de_animais():

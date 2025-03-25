@@ -27,5 +27,5 @@ ERP simples para o agro de produtores de pequeno e medio porte
 ## Pré-requisitos:
 
     - Python
-    - Banco de dados MySQL instalado com as
+    - Banco de dados MySQL instalado com as pendencias e realizando as conexões no banco de dados
 
