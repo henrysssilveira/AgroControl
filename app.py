@@ -12,7 +12,9 @@ conn = mysql.connector.connect(
 
 def dashboard(nome_usuario):
     while True:
-        print('\n[1] Animais:')
+        print('DASHBOARD')
+        print('____________________________________________')
+        print('\n[1] Animais')
         print('[2] Insumos')
         print('[3] Sair')
           
@@ -26,7 +28,9 @@ def dashboard(nome_usuario):
             print('Até uma proxima!')
             break
         else:
-             print('Opção invalida!')
+            print('Opção invalida!')
+
+        print('____________________________________________')
 
 def cadastrar_usuario():
 
@@ -49,8 +53,11 @@ def cadastrar_usuario():
         conn.commit()
         cursor.close()
 
+
 def animais():
      while True:
+        print('SEÇÃO ANIMAL')
+        print('____________________________________________')
         print('\n[1] Cadastrar Animais:')
         print('[2] Ver Animais cadastrados:')
         print('[3] Sair')
@@ -67,8 +74,10 @@ def animais():
             print('Opção Invalida!')
 
 
+
 def info_animais():
-     
+        print('INFORMAÇÕES DOS ANIMAIS')
+        print('____________________________________________')
         cursor = conn.cursor(dictionary=True)
         cursor.execute('SELECT * FROM animais')
 
@@ -79,8 +88,14 @@ def info_animais():
         cursor.close()
         conn.close()
 
+        print('____________________________________________')
+
 def insumos():
      while True:
+
+        print('SEÇÃO DE INSUMOS')
+        print('____________________________________________')
+
         print('\n[1] Ver insumos')
         print('[2] Atualizar insumos')
         print('[3] Gerar relatorio de insumos')
@@ -93,19 +108,23 @@ def insumos():
             print('Verifique aqui os insumos')
             ver_insumos()
         elif escolha_insumos == '2':
-            print('')
+            print('Estamos montando esta area ainda')
         elif escolha_insumos == '3':
-            print('')
+            relat_insumos()
         elif escolha_insumos == '4':
-            print('')
+            print('Estamos montando esta area ainda...')
             cadastrar_insumos()
         elif escolha_insumos == '5':
             print('até uma proxima!')
             break
         else:
-             print('Opção invalida! tente novamente')
+            print('Opção invalida! tente novamente')
+
 
 def cadastrar_insumos():
+        
+        print('CADASTRAR INSUMOS')
+        print('____________________________________________')
         
         cursor_cad_insumos = conn.cursor()
 
@@ -126,7 +145,12 @@ def cadastrar_insumos():
         conn.commit()
         cursor_cad_insumos.close()
 
+
 def ver_insumos():
+        
+        print('VISUALIZAR INSUMOS INTERNOS')
+        print('____________________________________________')
+
         cursor_ver_insumos = conn.cursor()
 
         cursor = conn.cursor(dictionary=True)
@@ -140,7 +164,29 @@ def ver_insumos():
         conn.close()
 
 
+def relat_insumos():
+        print('RELATORIO DE INSUMOS')
+        print('____________________________________________')
+
+        cursor_relat_insumos = conn.cursor()
+
+        sql_relat_insumos = 'SELECT nome_insumo FROM insumos'
+        cursor_relat_insumos.execute(sql_relat_insumos)
+        insumo = cursor_relat_insumos.fetchall()
+        cursor_relat_insumos.close()
+
+        if insumo:
+            print('Insumos disponíveis:')
+            for insumo in insumo:
+                print(f'- {insumo[0]}')
+        else:
+            print('Nenhum insumo encontrado.')
+        
+
 def cadastro_de_animais():
+        
+        print('CADASTRO DE ANIMAIS')
+        print('____________________________________________')
 
         # Cadastrando um animal
         cursor_animais_cad = conn.cursor()
@@ -164,8 +210,12 @@ def cadastro_de_animais():
         conn.commit()
         cursor_animais_cad.close()
 
+
 def login_usuario():
         
+        print('LOGIN')
+        print('____________________________________________')
+
         #login
         cursor_login = conn.cursor()
 
@@ -185,11 +235,15 @@ def login_usuario():
         else:
             print('❌ E-mail não encontrado. Tente novamente.')
 
+
+
 def menu():
 
       # Menu para escolha entre login e cadastro
     while True:
         print("\033[32m'Olá! seja bem vindo ao AgroControl'\033[0m")
+        print('____________________________________________')
+
         print("\n[1] Cadastrar-se")
         print("[2] Fazer Login")
         print("[3] Sair")
@@ -202,6 +256,7 @@ def menu():
             login_usuario()
         elif escolha == '3':
             print('Até uma proxima!')
+            print('____________________________________________')
             break
         else:
             print('Erro, tente novamente!')
