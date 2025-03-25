@@ -34,14 +34,14 @@ def cadastrar_usuario():
 
 def dashboard(nome_usuario):
     while True:
-        print('\n[1] Cadastrar animais:')
+        print('\n[1] Animais:')
         print('[2] Insumos')
         print('[3] Sair')
           
         escolha_dash = input('Escolha sua opção:  ')
 
         if escolha_dash == '1':
-            cadastro_de_animais()
+            animais()
         elif escolha_dash == '2':
             insumos()
         elif escolha_dash == '3':
@@ -50,7 +50,35 @@ def dashboard(nome_usuario):
         else:
              print('Opção invalida!')
           
+def animais():
+     while True:
+        print('\n[1] Cadastrar Animais:')
+        print('[2] Ver Animais cadastrados:')
+        print('[3] Sair')
 
+        escolha_animais = input('Escolha sua opção:  ')
+
+        if escolha_animais == '1':
+            cadastro_de_animais()
+        elif escolha_animais == '2':
+            info_animais()
+        elif escolha_animais == '3':
+            break
+        else: 
+            print('Opção Invalida!')
+
+
+def info_animais():
+     
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute('SELECT * FROM animais')
+
+        inf_animal = cursor.fetchall()
+
+        pprint(inf_animal)
+
+        cursor.close()
+        conn.close()
 
 def insumos():
      while True:
