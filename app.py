@@ -10,6 +10,24 @@ conn = mysql.connector.connect(
         database="erp_agro"
     )
 
+def dashboard(nome_usuario):
+    while True:
+        print('\n[1] Animais:')
+        print('[2] Insumos')
+        print('[3] Sair')
+          
+        escolha_dash = input('Escolha sua opção:  ')
+
+        if escolha_dash == '1':
+            animais()
+        elif escolha_dash == '2':
+            insumos()
+        elif escolha_dash == '3':
+            print('Até uma proxima!')
+            break
+        else:
+             print('Opção invalida!')
+
 def cadastrar_usuario():
 
         # cadastro de um usuario
@@ -31,25 +49,6 @@ def cadastrar_usuario():
         conn.commit()
         cursor.close()
 
-
-def dashboard(nome_usuario):
-    while True:
-        print('\n[1] Animais:')
-        print('[2] Insumos')
-        print('[3] Sair')
-          
-        escolha_dash = input('Escolha sua opção:  ')
-
-        if escolha_dash == '1':
-            animais()
-        elif escolha_dash == '2':
-            insumos()
-        elif escolha_dash == '3':
-            print('Até uma proxima!')
-            break
-        else:
-             print('Opção invalida!')
-          
 def animais():
      while True:
         print('\n[1] Cadastrar Animais:')
@@ -187,9 +186,10 @@ def login_usuario():
             print('❌ E-mail não encontrado. Tente novamente.')
 
 def menu():
-      
+
       # Menu para escolha entre login e cadastro
     while True:
+        print("\033[32m'Olá! seja bem vindo ao AgroControl'\033[0m")
         print("\n[1] Cadastrar-se")
         print("[2] Fazer Login")
         print("[3] Sair")
@@ -207,7 +207,4 @@ def menu():
             print('Erro, tente novamente!')
 
 menu()
-
-conn.commit()
-
 conn.close()
