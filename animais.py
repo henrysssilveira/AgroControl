@@ -6,7 +6,7 @@ conn = mysql.connector.connect(
         host="localhost",
         user="henrique",
         password="1234",
-        database="meu_banco"
+        database="erp_agro"
     )
 
 cursor = conn.cursor(dictionary=True)

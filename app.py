@@ -5,8 +5,8 @@ from pprint import pprint
 
 conn = mysql.connector.connect(
         host="localhost",
-        user="admin",
-        password="Administrator2404",
+        user="henrique",
+        password="1234",
         database="erp_agro"
     )
 
@@ -53,12 +53,18 @@ def cadastro_de_animais():
         # Cadastrando um animal
         cursor_animais_cad = conn.cursor()
 
-        nome_do_animal = input('Insira o nome do animal? (ex: Dolores) ')
-        tipo_de_animal = input('Qual é o tipo do seu animal? (ex: grande porte) ')
-        idade_do_animal = input('Quantos anos seu animal tem? (ex: 6 anos) ')
+        especie = input('Insira aqui a especie do animal:  ')
+        peso = input('Insira aqui o peso do animal:  ')
+        genero = input('Insira aqui o genero do animal:  ')
+        porte_do_animal = input('Insira aqui o porte do animal:  ')
+        doencas = input('Insira se o animal tiver doenças, se não ouver insira (nd):  ')
+        alimentacao = input('Insira o que o animal come:  ')
+        idade = input('Insira quantos anos e meses o animal tem (insira como (1.6 anos)):  ')
+        vacinacao = input('Insira quais vacinas o animal já tomou:  ')
+        produtividada = input('O que o animal produz:  ')
 
-        sql_animais = 'INSERT INTO animais (nome_do_animal, idade_do_animal, tipo_de_animal) VALUES (%s, %s, %s)'
-        valores_dos_animais = (nome_do_animal, idade_do_animal, tipo_de_animal)
+        sql_animais = 'INSERT INTO animais (especie, peso, genero, porte_do_animal, doencas, alimentacao, idade, vacinacao, produtividada) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)'
+        valores_dos_animais = (especie, peso, genero, porte_do_animal, doencas, alimentacao, idade, vacinacao, produtividada)
         cursor_animais_cad.execute(sql_animais, valores_dos_animais)
 
         pprint('Cadastro do Animal feito com sucesso!')
@@ -73,7 +79,7 @@ def login_usuario():
 
         email = input('Insira seu email de login aqui: ')
 
-        sql_login = 'SELECT nome FROM usuarios WHERE email = %s'
+        sql_login = 'SELECT usuario FROM usuarios WHERE email = %s'
         cursor_login.execute(sql_login, (email,))
 
         usuario = cursor_login.fetchone()
@@ -108,6 +114,6 @@ def menu():
 
 menu()
 
-
+conn.commit()
 
 conn.close()

@@ -1,1 +1,0 @@
-CREATE USER 'admin'@'127.0.0.1' IDENTIFIED BY 'Administrator2404';
