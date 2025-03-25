@@ -15,10 +15,10 @@ def cadastrar_usuario():
         # cadastro de um usuario
         cursor = conn.cursor()
 
-        usuario = input('Digite aqui seu nome de usuario! ')
-        senha = input('Crie uma senha aqui: ')
-        senha_confirm = input('Crie uma senha aqui: ')
-        email = input('Coloque seu melhor email aqui! ')
+        usuario = input('Digite aqui seu nome de usuario!  ')
+        senha = input('Crie uma senha aqui:  ')
+        senha_confirm = input('Crie uma senha aqui:  ')
+        email = input('Coloque seu melhor email aqui!  ')
 
         # criar tabela para cada usuario.
 
@@ -35,18 +35,44 @@ def cadastrar_usuario():
 def dashboard(nome_usuario):
     while True:
         print('\n[1] Cadastrar animais:')
-        print('[2] Sair')
+        print('[2] Insumos')
+        print('[3] Sair')
           
-        escolha_dash = input('Escolha sua opção')
+        escolha_dash = input('Escolha sua opção:  ')
 
         if escolha_dash == '1':
             cadastro_de_animais()
         elif escolha_dash == '2':
+            insumos()
+        elif escolha_dash == '3':
             print('Até uma proxima!')
             break
         else:
              print('Opção invalida!')
           
+
+
+def insumos():
+     while True:
+        print('\n[1] Ver insumos')
+        print('[2] Atualizar insumos')
+        print('[3] Gerar relatorio de insumos')
+        print('[4] Sair')
+
+        escolha_insumos = input('Escolha uma opção:  ')
+
+        if escolha_insumos == '1':
+            print('')
+        elif escolha_insumos == '2':
+            print('')
+        elif escolha_insumos == '3':
+            print('')
+        elif escolha_insumos == '4':
+            print('até uma proxima!')
+            break
+        else:
+             print('Opção invalida! tente novamente')
+
 
 def cadastro_de_animais():
 
@@ -78,9 +104,10 @@ def login_usuario():
         cursor_login = conn.cursor()
 
         email = input('Insira seu email de login aqui: ')
+        senha = input('Insira aqui sua senha:')
 
-        sql_login = 'SELECT usuario FROM usuarios WHERE email = %s'
-        cursor_login.execute(sql_login, (email,))
+        sql_login = 'SELECT usuario FROM usuarios WHERE email = %s AND senha = %s'
+        cursor_login.execute(sql_login, (email, senha))
 
         usuario = cursor_login.fetchone()
         cursor_login.close
