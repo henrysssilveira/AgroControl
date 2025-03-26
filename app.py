@@ -1,7 +1,8 @@
 import mysql.connector
 import pprint
 from pprint import pprint 
-
+import customtkinter
+import pandas as pd
 
 conn = mysql.connector.connect(
         host="localhost",
@@ -34,7 +35,7 @@ def dashboard(nome_usuario):
 
 def cadastrar_usuario():
 
-        # cadastro de um usuario
+        # cadakstro de um usuario
         cursor = conn.cursor()
 
         usuario = input('Digite aqui seu nome de usuario!  ')
@@ -52,7 +53,6 @@ def cadastrar_usuario():
 
         conn.commit()
         cursor.close()
-
 
 def animais():
      while True:
@@ -72,8 +72,6 @@ def animais():
             break
         else: 
             print('Opção Invalida!')
-
-
 
 def info_animais():
         print('INFORMAÇÕES DOS ANIMAIS')
@@ -96,30 +94,24 @@ def insumos():
         print('SEÇÃO DE INSUMOS')
         print('____________________________________________')
 
-        print('\n[1] Ver insumos')
-        print('[2] Atualizar insumos')
-        print('[3] Gerar relatorio de insumos')
-        print('[4] Cadastrar insumos')
-        print('[5] Sair')
+        print('[1] Atualizar insumos')
+        print('[2] Gerar relatorio de insumos')
+        print('[3] Cadastrar insumos')
+        print('[4] Sair')
 
         escolha_insumos = input('Escolha uma opção:  ')
 
         if escolha_insumos == '1':
-            print('Verifique aqui os insumos')
-            ver_insumos()
-        elif escolha_insumos == '2':
             print('Estamos montando esta area ainda')
-        elif escolha_insumos == '3':
+        elif escolha_insumos == '2':
             relat_insumos()
-        elif escolha_insumos == '4':
-            print('Estamos montando esta area ainda...')
+        elif escolha_insumos == '3':
             cadastrar_insumos()
-        elif escolha_insumos == '5':
+        elif escolha_insumos == '4':
             print('até uma proxima!')
             break
         else:
             print('Opção invalida! tente novamente')
-
 
 def cadastrar_insumos():
         
@@ -146,42 +138,31 @@ def cadastrar_insumos():
         cursor_cad_insumos.close()
 
 
-def ver_insumos():
-        
-        print('VISUALIZAR INSUMOS INTERNOS')
-        print('____________________________________________')
-
-        cursor_ver_insumos = conn.cursor()
-
-        cursor = conn.cursor(dictionary=True)
-        cursor.execute('SELECT * FROM insumos')
-
-        ver_insumos_info = cursor.fetchall()
-
-        pprint(ver_insumos_info)
-
-        cursor.close()
-        conn.close()
-
-
 def relat_insumos():
         print('RELATORIO DE INSUMOS')
         print('____________________________________________')
 
         cursor_relat_insumos = conn.cursor()
 
-        sql_relat_insumos = 'SELECT nome_insumo FROM insumos'
+        sql_relat_insumos = 'SELECT * FROM erp_agro.insumos_view_relat_testando;'
         cursor_relat_insumos.execute(sql_relat_insumos)
-        insumo = cursor_relat_insumos.fetchall()
+        insumos = cursor_relat_insumos.fetchall()
         cursor_relat_insumos.close()
 
-        if insumo:
+        if insumos:
             print('Insumos disponíveis:')
-            for insumo in insumo:
-                print(f'- {insumo[0]}')
+
+            insumos_lista = []
+            for insumo in insumos:
+                insumos_lista.append({'nome': insumo[0], 'categoria': insumo[1], 'Validade': insumo[2], 'Qtd Adicionada': insumo[3], 'Qtd Usada': insumo[4] })
         else:
             print('Nenhum insumo encontrado.')
-        
+
+
+
+        df = pd.DataFrame(insumos_lista)
+        print(df)
+
 
 def cadastro_de_animais():
         
