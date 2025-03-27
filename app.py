@@ -101,7 +101,6 @@ def info_animais():
         print(df)
 
         cursor.close()
-        conn.close()
 
 
 def insumos():
@@ -171,14 +170,12 @@ def relat_insumos():
             insumos_lista = []
             for insumo in insumos:
                 insumos_lista.append({'nome': insumo[0], 'categoria': insumo[1], 'Validade': insumo[2], 'Qtd Adicionada': insumo[3], 'Qtd Usada': insumo[4] })
+
+            df = pd.DataFrame(insumos_lista)
+            print('Aqui é o print')
+            print(df)
         else:
             print('Nenhum insumo encontrado.')
-
-
-
-        df = pd.DataFrame(insumos_lista)
-        print('Aqui é o print')
-        print(df)
 
 
 def cadastro_de_animais():
