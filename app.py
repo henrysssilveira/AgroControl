@@ -1,8 +1,7 @@
 import mysql.connector
-import pprint
 from pprint import pprint 
-import customtkinter
 import pandas as pd
+from IPython.display import display
 
 conn = mysql.connector.connect(
         host="localhost",
@@ -15,23 +14,34 @@ def dashboard(nome_usuario):
     while True:
         print('DASHBOARD')
         print('____________________________________________')
-        print('\n[1] Animais')
-        print('[2] Insumos')
-        print('[3] Sair')
+        print('\n[1] Atualizar consumos de hoje')
+        print('[2] Animais')
+        print('[3] Insumos')
+        print('[4] Maquinário')
+        print('[5] Sair')
           
         escolha_dash = input('Escolha sua opção:  ')
 
         if escolha_dash == '1':
+            atualizar_consumo()
+            print('Estamos construindo esta parte ainda! em breve esta opção estara disponivel!')
+        if escolha_dash == '2':
             animais()
-        elif escolha_dash == '2':
-            insumos()
         elif escolha_dash == '3':
+            insumos()
+        elif escolha_dash == '4':
+            print('Estamos construindo esta parte ainda! em breve esta opção estara disponivel!')
+        elif escolha_dash == '5':
             print('Até uma proxima!')
             break
         else:
             print('Opção invalida!')
 
         print('____________________________________________')
+
+def atualizar_consumo():
+        print('Estamos construindo esta parte ainda! em breve esta opção estara disponivel!')
+     
 
 def cadastrar_usuario():
 
@@ -58,8 +68,8 @@ def animais():
      while True:
         print('SEÇÃO ANIMAL')
         print('____________________________________________')
-        print('\n[1] Cadastrar Animais:')
-        print('[2] Ver Animais cadastrados:')
+        print('\n[1] Cadastrar Animais')
+        print('[2] Ver Animais cadastrados')
         print('[3] Sair')
 
         escolha_animais = input('Escolha sua opção:  ')
@@ -77,16 +87,22 @@ def info_animais():
         print('INFORMAÇÕES DOS ANIMAIS')
         print('____________________________________________')
         cursor = conn.cursor(dictionary=True)
-        cursor.execute('SELECT * FROM animais')
+        cursor.execute('SELECT * FROM relat_animais')
+        inf_animal_cs = cursor.fetchall()
 
-        inf_animal = cursor.fetchall()
+        if inf_animal_cs:
+            print('Animais Cadastrados')
 
-        pprint(inf_animal)
+            lista_animais = []
+            for animais in inf_animal_cs:
+                lista_animais.append({'Especie do animal': animais['especie'], 'Peso do Animal': animais['peso'], 'Genero': animais['genero'], 'Porte do animal': animais['porte_do_animal'], 'Idade': animais['idade'], 'Produtividade': animais['produtividade'] })
+
+        df = pd.DataFrame(lista_animais)
+        print(df)
 
         cursor.close()
         conn.close()
 
-        print('____________________________________________')
 
 def insumos():
      while True:
@@ -161,6 +177,7 @@ def relat_insumos():
 
 
         df = pd.DataFrame(insumos_lista)
+        print('Aqui é o print')
         print(df)
 
 
